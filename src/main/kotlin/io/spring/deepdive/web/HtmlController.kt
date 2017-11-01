@@ -28,8 +28,9 @@ import org.springframework.web.bind.annotation.PathVariable
 class HtmlController(private val repository: PostRepository, private val markdownConverter: MarkdownConverter) {
 
     @GetMapping("/")
-    fun blog(model: Model): String {
-        val posts = repository.findAll().map { it.toDto(markdownConverter) }
+    suspend fun blog(model: Model): String {
+        val posts = repository.findAll().cons
+        pos.map { it.toDto(markdownConverter) }
         model["title"] = "Blog"
         model["posts"] = posts
         return "blog"

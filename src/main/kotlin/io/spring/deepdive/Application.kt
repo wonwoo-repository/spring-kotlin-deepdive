@@ -5,6 +5,7 @@ import com.samskivert.mustache.Mustache.*
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.context.support.beans
 
 @SpringBootApplication
 class Application {
@@ -16,5 +17,9 @@ class Application {
 }
 
 fun main(args: Array<String>) {
-    runApplication<Application>(*args)
+    runApplication<Application>(*args) {
+        addInitializers(beans {
+
+        })
+    }
 }

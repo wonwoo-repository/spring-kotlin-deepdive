@@ -29,6 +29,13 @@ repositories {
 	mavenCentral()
 	maven { url "https://repo.spring.io/milestone" }
 	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://dl.bintray.com/konrad-kaminski/maven" }
+}
+
+kotlin {
+	experimental {
+		coroutines 'enable'
+	}
 }
 
 compileKotlin {
@@ -48,16 +55,20 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jre8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("org.springframework.boot:spring-boot-starter-data-mongodb")
-	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+	compile("org.springframework.boot:spring-boot-starter-webflux")
 	compile("org.springframework.boot:spring-boot-starter-mustache")
 	compile("com.atlassian.commonmark:commonmark:0.10.0")
 	compile("com.atlassian.commonmark:commonmark-ext-autolink:0.10.0")
 	compile("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+	compile("org.springframework.kotlin:spring-webflux-kotlin-coroutine:0.3.0")
+	compile("org.springframework.kotlin:spring-data-mongodb-kotlin-coroutine:0.3.0")
+	compile("org.springframework.kotlin:spring-boot-autoconfigure-kotlin-coroutine:0.3.0")
 	runtime("org.springframework.boot:spring-boot-devtools")
 	testCompile("org.springframework.boot:spring-boot-starter-test") {
 		exclude module: "junit"
 	}
 	testCompile("org.junit.jupiter:junit-jupiter-api")
+	testCompile("io.projectreactor:reactor-test")
 	testRuntime("org.junit.jupiter:junit-jupiter-engine")
 }
