@@ -23,7 +23,9 @@ import org.springframework.boot.test.context.SpringBootTest.*
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.test.context.junit.jupiter.SpringExtension
-import org.springframework.web.client.RestTemplate
+import org.springframework.web.coroutine.function.client.CoroutineWebClient
+import org.springframework.web.coroutine.function.client.DefaultCoroutineWebClient
+import org.springframework.web.reactive.function.client.WebClient
 
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -35,12 +37,12 @@ abstract class AbstractIntegrationTests {
     @Autowired
     private lateinit var builder: RestTemplateBuilder
 
-    protected lateinit var restTemplate: RestTemplate
+    protected lateinit var client: CoroutineWebClient
 
     @BeforeAll
     fun setup() {
         // We don't use TestRestTemplate because of Spring Boot issues #10761 and #8062
-        restTemplate = builder.rootUri("http://localhost:$port").build()
+        client =  DefaultCoroutineWebClient(WebClient.create())
     }
 
 }

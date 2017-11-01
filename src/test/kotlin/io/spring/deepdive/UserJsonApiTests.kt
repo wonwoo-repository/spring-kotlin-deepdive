@@ -16,22 +16,22 @@
 package io.spring.deepdive
 
 import io.spring.deepdive.model.User
+import kotlinx.coroutines.experimental.runBlocking
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.springframework.web.client.getForObject
 
 class UserJsonApiTests : AbstractIntegrationTests() {
 
     @Test
-    fun `Assert FindAll JSON API is parsed correctly and contains 11 elements`() {
-        val users = restTemplate.getForObject<List<User>>("/api/user/")
+    fun `Assert FindAll JSON API is parsed correctly and contains 11 elements`() = runBlocking {
+        val users = client.get().uri("http://localhost:$port/api/user/").retrieve().body<List<User>>()
         assertThat(users).hasSize(11)
     }
 
     @Test
-    fun `Verify findOne JSON API`() {
-        val user = restTemplate.getForObject<User>("/api/user/MkHeck")!!
+    fun `Verify findOne JSON API`() = runBlocking {
+        val user = client.get().uri("http://localhost:$port/api/user/MkHeck").retrieve().body<User>()!!
         assertThat(user.login).isEqualTo("MkHeck")
         assertThat(user.firstname).isEqualTo("Mark")
         assertThat(user.lastname).isEqualTo("Heckler")
