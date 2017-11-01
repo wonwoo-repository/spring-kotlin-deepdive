@@ -17,6 +17,7 @@ package io.spring.deepdive.web
 
 import io.spring.deepdive.MarkdownConverter
 import io.spring.deepdive.repository.PostRepository
+import io.spring.deepdive.toList
 
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -29,16 +30,15 @@ class HtmlController(private val repository: PostRepository, private val markdow
 
     @GetMapping("/")
     suspend fun blog(model: Model): String {
-        val posts = repository.findAll().cons
-        pos.map { it.toDto(markdownConverter) }
+        val posts = repository.findAll().toList().map { it.toDto(markdownConverter) }
         model["title"] = "Blog"
         model["posts"] = posts
         return "blog"
     }
 
     @GetMapping("/{slug}")
-    fun post(@PathVariable slug: String, model: Model): String {
-        val post = repository.findById(slug).orElseThrow { IllegalArgumentException("Wrong post slug provided") }
+    suspend fun post(@PathVariable slug: String, model: Model): String {
+        val post = repository.findById(slug)!!
         model["post"] = post.toDto(markdownConverter)
         return "post"
     }

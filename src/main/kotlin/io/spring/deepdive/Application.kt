@@ -6,8 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.context.support.beans
+import org.springframework.data.mongodb.repository.config.EnableCoroutineMongoRepositories
+import org.springframework.kotlin.experimental.coroutine.EnableCoroutine
 
 @SpringBootApplication
+@EnableCoroutine
+@EnableCoroutineMongoRepositories
 class Application {
 
     @Bean
@@ -17,9 +21,5 @@ class Application {
 }
 
 fun main(args: Array<String>) {
-    runApplication<Application>(*args) {
-        addInitializers(beans {
-
-        })
-    }
+    runApplication<Application>(*args)
 }

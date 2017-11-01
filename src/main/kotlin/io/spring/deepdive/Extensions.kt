@@ -15,6 +15,8 @@
  */
 package io.spring.deepdive
 
+import kotlinx.coroutines.experimental.channels.ReceiveChannel
+import kotlinx.coroutines.experimental.channels.consumeEach
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
@@ -44,3 +46,8 @@ private fun getOrdinal(n: Int) = when {
     n % 10 == 3 -> "${n}rd"
     else -> "${n}th"
 }
+
+suspend fun <T> ReceiveChannel<T>.toList(): List<T> =
+    ArrayList<T>().also { list ->
+        consumeEach { list.add(it) }
+    }
