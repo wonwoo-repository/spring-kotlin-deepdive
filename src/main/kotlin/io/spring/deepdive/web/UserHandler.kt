@@ -16,13 +16,11 @@
 package io.spring.deepdive.web
 
 import io.spring.deepdive.repository.UserRepository
-import org.springframework.stereotype.Component
 
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse.*
 import org.springframework.web.reactive.function.server.body
 
-@Component
 class UserHandler(private val repository: UserRepository) {
 
     fun findAll(req: ServerRequest) =

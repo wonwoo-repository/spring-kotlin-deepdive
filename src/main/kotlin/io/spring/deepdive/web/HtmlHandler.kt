@@ -25,7 +25,6 @@ import org.springframework.web.reactive.function.server.ServerResponse.*
 
 import reactor.core.publisher.toMono
 
-@Component
 class HtmlHandler(private val userRepository: UserRepository, private val postRepository: PostRepository, private val markdownConverter: MarkdownConverter) {
 
     fun blog(req: ServerRequest) = ok()

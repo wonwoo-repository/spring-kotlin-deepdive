@@ -15,11 +15,14 @@
  */
 package io.spring.deepdive
 
+import io.spring.deepdive.web.webContext
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.*
+import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.reactive.function.client.WebClient
 

@@ -27,7 +27,6 @@ import org.springframework.web.reactive.function.server.bodyToMono
 import org.springframework.web.reactive.function.server.bodyToServerSentEvents
 import reactor.core.publisher.toMono
 
-@Component
 class PostHandler(private val postRepository: PostRepository,
                   private val postEventRepository: PostEventRepository,
                   private val markdownConverter: MarkdownConverter) {

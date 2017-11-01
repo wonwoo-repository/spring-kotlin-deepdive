@@ -19,9 +19,7 @@ import io.spring.deepdive.model.Post
 import io.spring.deepdive.model.PostEvent
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent
-import org.springframework.stereotype.Component
 
-@Component
 class PostEventListener(private val postEventRepository: PostEventRepository) : AbstractMongoEventListener<Post>() {
 
     override fun onAfterSave(event: AfterSaveEvent<Post>) {
