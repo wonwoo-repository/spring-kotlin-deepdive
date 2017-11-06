@@ -46,7 +46,7 @@ class PostJsonApiTests : AbstractIntegrationTests() {
     @Test
     fun `Verify findOne JSON API with Markdown converter`() = runBlocking<Unit> {
         val post = client.get().uri("http://localhost:$port/api/post/reactor-bismuth-is-out?converter=markdown").retrieve().body<Post>()!!
-        assertThat(post.title).startsWith("<p>Reactor Bismuth is out")
+        assertThat(post.title).startsWith("Reactor Bismuth is out")
         assertThat(post.headline).doesNotContain("**3.1.0.RELEASE**").contains("<strong>3.1.0.RELEASE</strong>")
         assertThat(post.content).doesNotContain("[Spring Framework 5.0](https://spring.io/blog/2017/09/28/spring-framework-5-0-goes-ga)").contains("<a href=\"https://spring.io/blog/2017/09/28/spring-framework-5-0-goes-ga\">")
         assertThat(post.addedAt).isEqualTo(LocalDateTime.of(2017, 9, 28, 12, 0))

@@ -30,7 +30,6 @@ class PostController(private val repository: PostRepository, private val markdow
     @GetMapping("/{slug}")
     suspend fun findOne(@PathVariable slug: String, @RequestParam converter: String?) = when (converter) {
         "markdown" -> repository.findById(slug)!!.let { it.copy(
-                title = markdownConverter.invoke(it.title),
                 headline = markdownConverter.invoke(it.headline),
                 content = markdownConverter.invoke(it.content)) }
         null -> repository.findById(slug)
