@@ -21,11 +21,19 @@ import io.spring.deepdive.model.Post
 import kotlinx.coroutines.experimental.runBlocking
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.springframework.web.client.HttpServerErrorException
-import org.springframework.web.reactive.function.client.ClientResponse
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.web.coroutine.function.client.DefaultCoroutineWebClient
+import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
 
-class PostJsonApiTests : AbstractIntegrationTests() {
+@ExtendWith(SpringExtension::class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class PostJsonApiTests(@LocalServerPort val port: Int) {
+
+    private val client =  DefaultCoroutineWebClient(WebClient.create())
 
     @Test
     fun `Assert findAll JSON API is parsed correctly and contains 3 elements`() = runBlocking<Unit> {

@@ -3,9 +3,18 @@ package io.spring.deepdive
 import kotlinx.coroutines.experimental.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import java.net.URI
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.test.context.junit.jupiter.SpringExtension
+import org.springframework.web.coroutine.function.client.DefaultCoroutineWebClient
+import org.springframework.web.reactive.function.client.WebClient
 
-class HtmlTests : AbstractIntegrationTests() {
+@ExtendWith(SpringExtension::class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class HtmlTests(@LocalServerPort val port: Int) {
+
+    private val client =  DefaultCoroutineWebClient(WebClient.create())
 
     @Test
     fun `Assert content on blog page`() = runBlocking<Unit> {
